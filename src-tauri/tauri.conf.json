@@ -32,11 +32,6 @@
 "bundle": {
     "active": true,
     "targets": ["nsis", "dmg", "appimage", "deb"],
-    "android": {
-      "minSdkVersion": 24,
-      "targetSdkVersion": 34,
-      "versionCode": 1
-    },
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
