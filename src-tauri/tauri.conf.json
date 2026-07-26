@@ -29,9 +29,14 @@
       "csp": "default-src 'self'; connect-src 'self' ws: wss: https://tts-api.xfyun.cn https://*.aliyun.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'"
     }
   },
-  "bundle": {
+"bundle": {
     "active": true,
-   "targets": ["nsis", "dmg", "appimage", "deb"],
+    "targets": ["nsis", "dmg", "appimage", "deb"],
+    "android": {
+      "minSdkVersion": 24,
+      "targetSdkVersion": 34,
+      "versionCode": 1
+    },
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
