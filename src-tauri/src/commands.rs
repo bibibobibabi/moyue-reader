@@ -41,7 +41,7 @@ fn decode_bytes(bytes: &[u8]) -> Result<String, String> {
     }
     let mut detector = EncodingDetector::new();
     detector.feed(bytes, true);
-    let (encoding, _, _) = detector.guess(None, true);
+    let encoding = detector.guess(None, true);
     let (cow, _, had_errors) = encoding.decode(bytes);
     if had_errors {
         let (cow, _, _) = encoding_rs::GBK.decode(bytes);
@@ -62,8 +62,7 @@ pub async fn extract_pdf_text(file_path: String) -> Result<String, String> {
 #[tauri::command]
 pub async fn save_book_progress(app: AppHandle, progress: BookProgress) -> Result<(), String> {
     let db = tauri_plugin_sql::Builder::default()
-        .build("sqlite:moyue.db".to_string(), &app)
-        .map_err(|e| e.to_string())?;
+        .build("sqlite:moyue.db".to_string(), &app);
     db.execute(
         "INSERT OR REPLACE INTO book_progress (book_id, position, chapter, last_read_at) VALUES (?1, ?2, ?3, ?4)",
         vec![progress.book_id.into(), progress.position.into(), progress.chapter.into(), progress.last_read_at.into()],
@@ -74,8 +73,7 @@ pub async fn save_book_progress(app: AppHandle, progress: BookProgress) -> Resul
 #[tauri::command]
 pub async fn load_book_progress(app: AppHandle, book_id: String) -> Result<Option<BookProgress>, String> {
     let db = tauri_plugin_sql::Builder::default()
-        .build("sqlite:moyue.db".to_string(), &app)
-        .map_err(|e| e.to_string())?;
+        .build("sqlite:moyue.db".to_string(), &app);
     let rows: Vec<BookProgress> = db.select(
         "SELECT book_id, position, chapter, last_read_at FROM book_progress WHERE book_id = ?1",
         vec![book_id.into()],
@@ -102,7 +100,7 @@ pub async fn get_system_fonts() -> Result<Vec<String>, String> {
     let mut fonts = Vec::new();
     #[cfg(target_os = "windows")]
     {
-        if let Ok(entries) = fs::read_dir("C:\\Windows\\Fonts") {
+        if let Ok(entries) = fs::read_dir("C:\\\\Windows\\\\Fonts") {
             for entry in entries.flatten() {
                 if let Some(name) = entry.file_name().to_str() {
                     if name.ends_with(".ttf") || name.ends_with(".otf") || name.ends_with(".ttc") {
