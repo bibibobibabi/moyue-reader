@@ -1,15 +1,9 @@
-use serde::{Deserialize, Serialize};
-use std::fs;
-use std::path::Path;
-use chardetng::EncodingDetector;
+// src-tauri/src/commands.rs
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ExportData {
-    pub books: Vec<serde_json::Value>,
-    pub notes: Vec<serde_json::Value>,
-    pub bookmarks: Vec<serde_json::Value>,
-    pub settings: serde_json::Value,
-}
-
+/// 获取系统字体列表（供前端调用）
 #[tauri::command]
-pub async fn read_text_file(file_path: String) -> Result<String
+pub fn get_system_fonts() -> Result<Vec<String>, String> {
+    // 暂时返回空列表，保证编译通过
+    // 后续你可以在这里写真正的系统字体获取逻辑
+    Ok(vec![])
+}
