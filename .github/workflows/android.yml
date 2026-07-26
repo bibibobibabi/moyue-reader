@@ -50,12 +50,15 @@ jobs:
         run: npm install -g @tauri-apps/cli
 
       - name: Init Android project
-        run: npx tauri android init
+        run: npx tauri android init --ci
         env:
           NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/27.0.12077973
 
       - name: Build APK
-        run: npx tauri android build --apk --split-per-abi
+        run: |
+          npx tauri android build \
+            --apk \
+            --split-per-abi
         env:
           NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/27.0.12077973
 
