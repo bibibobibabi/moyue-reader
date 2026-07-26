@@ -7,6 +7,14 @@ license = "MIT"
 edition = "2021"
 rust-version = "1.75"
 
+[lib]
+name = "moyue_reader_lib"
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[[bin]]
+name = "moyue-reader"
+path = "src/main.rs"
+
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
 
